@@ -16,8 +16,8 @@ namespace WebAPI.Controllers
                     Id = 1,
                     Code = "code",
                     Description = "description",
-                    Status="1",
-                    IsActive="1"
+                    Status=true,
+                    IsActive=true
 
 
                 }

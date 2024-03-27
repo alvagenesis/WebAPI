@@ -5,11 +5,18 @@ namespace WebAPI.Data
 {
     public class DataContext : DbContext
     {
-        public DataContext(DbContextOptions<DataContext> options) : base(options)
+        public IConfiguration _config {  get; set; }
+        public DataContext(IConfiguration config)
         {
-            
+            _config = config;
+        }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseSqlServer(_config.GetConnectionString("DefaultConnection"));
         }
 
         public DbSet <Item> Items {get; set; }
+        public DbSet <UnitOfMeasurement> UnitOfMeasurements { get; set; }
     }
 }

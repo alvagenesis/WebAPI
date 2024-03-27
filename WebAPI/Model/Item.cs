@@ -9,14 +9,12 @@ namespace WebAPI.Model
         [Column(TypeName = "varchar(50)")]
         public required string Code { get; set; }
         
-        [Column(TypeName = "varchar(100)")]
-        public required string Description { get; set; }
-        
-        [Column(TypeName = "bit")]
-        public required string Status { get; set; }
-        
-        [Column(TypeName = "bit")]
-        public required string IsActive { get; set; }
+        [Column(TypeName = "varchar(200)")]
+        public required string Description { get; set; }        
+       
+        public bool Status { get; set; }        
+       
+        public bool IsActive { get; set; }
 
     }
 }

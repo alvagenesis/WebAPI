@@ -12,15 +12,13 @@ namespace WebAPI.Model
 
         [Column(TypeName = "varchar(100)")]
         public required string Name { get; set; }
-
-        [Column(TypeName = "bit")]
-        public required string Status { get; set; }
-
-        [Column(TypeName = "bit")]
-        public required string IsActive { get; set; }
-
-        [Column(TypeName = "decimal(10,4)")]
-        public int IsSmallestUnit { get; set; }
+        
+        public required bool Status { get; set; }
+       
+        public required bool IsActive { get; set; }
+        
+        [Column(TypeName = "decimal(10, 4)")]        
+        public decimal IsSmallestUnit { get; set; }
 
 
     }
