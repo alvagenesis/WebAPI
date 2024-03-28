@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Hosting;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace WebAPI.Model
 {
@@ -17,7 +18,7 @@ namespace WebAPI.Model
        
         public bool IsActive { get; set; }
         
-        public ICollection<UnitOfMeasurement> UnitOfMeasurements { get; } = new List<UnitOfMeasurement>();
+        public List<UnitOfMeasurement> UnitOfMeasurements { get; set;}
 
     }
 }
