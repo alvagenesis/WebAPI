@@ -1,28 +1,39 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using WebAPI.Model;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using WebAPI.Model;
+using WebAPI.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace WebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
     public class UnitOfMeasurementController : ControllerBase
-    {
-        [HttpGet]
-        public async Task<ActionResult<List<UnitOfMeasurement>>> GetAllItems()
-        {
-            var unitOfMeasurements = new List<UnitOfMeasurement> {
-                new UnitOfMeasurement {
-                    Id = 1,
-                    ItemId = 1,
-                    Name = "thename",
-                    Status=true,
-                    IsActive=true,
-                    IsSmallestUnit=3
-                }
-            };
-            return Ok(unitOfMeasurements);
 
+    {
+        private protected DataContext _context;
+
+        public UnitOfMeasurementController(DataContext context)
+        {
+            _context = context;
+        }
+
+        [HttpPut]
+        public async Task<ActionResult<List<UnitOfMeasurement>>> Update(UnitOfMeasurement updatedUnitOfMeasurement)
+        {
+            var oldUnitOfMeasurement = await _context.UnitOfMeasurements.FindAsync(updatedUnitOfMeasurement.Id);
+            if (oldUnitOfMeasurement is null)
+                return NotFound("UnitOfMeasurement not found");
+
+            oldUnitOfMeasurement.Name = updatedUnitOfMeasurement.Name;
+            oldUnitOfMeasurement.Status = updatedUnitOfMeasurement.Status;
+            oldUnitOfMeasurement.IsActive = updatedUnitOfMeasurement.IsActive;
+            oldUnitOfMeasurement.IsSmallestUnit = updatedUnitOfMeasurement.IsSmallestUnit;
+            oldUnitOfMeasurement.ConversionToSmallestUnit = updatedUnitOfMeasurement.ConversionToSmallestUnit;
+
+            await _context.SaveChangesAsync();
+
+            return Ok(await _context.UnitOfMeasurements.ToListAsync());
         }
     }
 }

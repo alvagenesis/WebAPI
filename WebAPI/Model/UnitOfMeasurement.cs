@@ -13,9 +13,13 @@ namespace WebAPI.Model
         
         public bool Status { get; set; }
        
-        public bool IsActive { get; set; }
-        
-        [Column(TypeName = "decimal(10, 4)")]        
-        public decimal IsSmallestUnit { get; set; }
+        public bool IsActive { get; set; }        
+              
+        public bool IsSmallestUnit { get; set; }
+
+        [Column(TypeName = "decimal(10, 4)")]
+        public decimal ConversionToSmallestUnit { get; set; }
+
+
     }
 }

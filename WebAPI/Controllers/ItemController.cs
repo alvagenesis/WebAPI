@@ -19,15 +19,14 @@ namespace WebAPI.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<Item>>> GetAllItems ()
+        public async Task<ActionResult<List<Item>>> GetAll ()
         {
-            var items =  await _context.Items.Include(x => x.UnitOfMeasurements).ToListAsync();
+            var items = await _context.Items.Include(x => x.UnitOfMeasurements).ToListAsync();
             return Ok(items);
-
         }
 
         [HttpPost]
-        public async Task<ActionResult<List<Item>>> AddItem(Item item)
+        public async Task<ActionResult<List<Item>>> Add(Item item)
         {
             _context.Items.Add(item);
             await _context.SaveChangesAsync();
@@ -36,7 +35,7 @@ namespace WebAPI.Controllers
         }
 
         [HttpPut]
-        public async Task<ActionResult<List<Item>>> UpdateItem(Item updatedItem)
+        public async Task<ActionResult<List<Item>>> Update(Item updatedItem)
         {
             var oldItem = await _context.Items.FindAsync(updatedItem.Id);
             if (oldItem is null)
@@ -53,7 +52,7 @@ namespace WebAPI.Controllers
         }
 
         [HttpDelete]
-        public async Task<ActionResult<List<Item>>> DeleteItem(int id)
+        public async Task<ActionResult<List<Item>>> Delete(int id)
         {
             var item = await _context.Items.FindAsync(id);
             if (item is null)
